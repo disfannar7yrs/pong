@@ -1,4 +1,4 @@
-ball = []
+ball = {}
 x = 0
 y = 0
 sx = 0
