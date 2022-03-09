@@ -8,20 +8,20 @@ function player:load()
     self.center = (self.y+self.h)/2
     self.vely = 0   --CURRENT VELOCITY OF PLAYER PADDLE
     self.accel = 2 --ACCELERATION/HOW FAST TO REACH MAX SPEED
-    self.maxspeed = 10
+    self.maxspeed = 12
 end
 
-function check_bounds() --MAKES SURE PLAYER NEVER GOES BEYOND THE BOUNDARIES OF WINDOW
-    if player.y <= 0 then
-        player.y = 0
-    elseif player.y + player.h >= Screen_h then
-        player.y = Screen_h - player.h
+function player:check_bounds() --MAKES SURE PLAYER NEVER GOES BEYOND THE BOUNDARIES OF WINDOW
+    if self.y <= 0 then
+        self.y = 0
+    elseif self.y + self.h >= Screen_h then
+        self.y = Screen_h - self.h
     end
 end
 
 function player:update(dt)
     self.center = self.y+(self.h/2)
-    check_bounds()
+    player:check_bounds()
     --UPDATE PLAYER SCALE COMPARED TO WINDOW SIZE
     self.x = self.w*2
     self.w = Screen_w * 0.025

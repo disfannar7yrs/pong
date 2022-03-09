@@ -1,23 +1,24 @@
 ball = {}
 
 function kickoff() --BALL CONDITION AT GAME START OR AFTER GOAL
+    dir = {1, -1}
     ball.x = (Screen_w/2)-(ball.w/2)
     ball.y = (Screen_h/2)-(ball.h/2)
-    ball.dx = -1
+    ball.dx = math.random(#dir)
     ball.dy = 0
+    ball.speed = 4
     ball.game_on = true
 end
 
 function ball:load()
     self.w = Screen_w * 0.025
     self.h = Screen_h * 0.025
-    self.speed = 2
     kickoff()
 end
 
 --COLLISION FUNCTIONS:
 function player_collision() --CHECKS WHEN BALL MEETS PADDLE ON THE X AXIS, IF BALL IS LOWER THAN TOP OF PADDLE AND HIGHER THAN BOTTOM. IF SO RETURNS TRUE.
-    if ball.x <= player.x + player.w then
+    if ball.x <= player.x + player.w and ball.x + ball.w >= player.x then
         if ball.y + ball.h >= player.y and ball.y <= player.y + player.h then
            return true 
         end
@@ -37,7 +38,7 @@ function player_angle() --GETS ANGLE OF BALL'S BOUNCE BACK ON COLLISION WITH PLA
 end
 
 function ai_collision() --SAME AS PLAYER_COLLISION() BUT FOR AI PADDLE
-    if ball.x + ball.w >= ai.x then
+    if ball.x + ball.w >= ai.x and ball.x <= ai.x + ai.w then
         if ball.y + ball.h >= ai.y and ball.y <= ai.y + ai.h then
            return true 
         end
@@ -101,10 +102,12 @@ function ball:update(dt)
     if player_collision() then
         self.dx = self.dx * -1
         player_angle()
+        self.speed = self.speed + 0.25
     end
     if ai_collision() then
         self.dx = self.dx * -1
         ai_angle()
+        self.speed = self.speed + 0.25
     end
     border_collision()
 
