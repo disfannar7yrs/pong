@@ -1,10 +1,10 @@
 ai = {}
 
 function ai:load()
-    self.x = Screen_w * 0.05 --AI STARTING POSITION (X/Y)
-    self.y = Screen_h/2
     self.w = Screen_w * 0.025 --AI PADDLE SIZE (WIDTH/HEIGHT)
     self.h = Screen_h * 0.2
+    self.x = Screen_w-(self.w*3) --AI STARTING POSITION (X/Y)
+    self.y = (Screen_h/2)-(self.h/2)
     self.vely = 0   --AI CURRENT SPEED
     self.accel = 5  --AI ACCELERATION/HOW FAST TO REACH MAX SPEED
     self.maxspeed = 25
@@ -19,8 +19,9 @@ function check_bounds() --MAKES SURE AI NEVER GOES BEYOND THE BOUNDARIES OF WIND
 end
 
 function ai:update(dt)
+    self.center = self.y+(self.h/2)
     --UPDATE AI SCALE COMPARED TO WINDOW SIZE
-    self.x = Screen_w * 0.05
+    self.x = Screen_w-(self.w*3)
     self.w = Screen_w * 0.025
     self.h = Screen_h * 0.2
     --MOVEMENT
